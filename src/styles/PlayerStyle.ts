@@ -26,6 +26,7 @@ export const Container = styled.div`
 
   footer {
     align-self: stretch;
+    flex-direction: column;
 
     &.empty .progress {
       opacity: 0.5;
@@ -68,6 +69,15 @@ export const Container = styled.div`
   display: flex;
   align-items: center;
   justify-content: center;
+  transition: filter 0.2s;
+
+  &:disabled {
+    cursor: default;
+  }
+
+  &:hover:not(:disabled) {
+    filter: brightness(0.85);
+  }
 }
 
 .progress {
@@ -82,8 +92,9 @@ export const Container = styled.div`
     text-align: center;
   }
 
-  .slider {
+  .sliderBar {
     flex: 1;
+    min-width: 8rem;
 
     .emptySlider {
       width: 100%;
@@ -136,5 +147,4 @@ export const Container = styled.div`
       }
     }
   }
-}
 `
