@@ -4,7 +4,7 @@ export function Player(){
   return(
     <Container>
       <header>
-        <img src="./playing.svg" />
+        <img src="/playing.svg" />
         <strong>Tocando agora</strong>
       </header>
       <div className="emptyPlayer">
@@ -22,23 +22,23 @@ export function Player(){
         </div>
         <div className="buttons">
           <button disabled>
-            <img src="./shuffle.svg" />
+            <img src="/shuffle.svg" />
           </button>
           
           <button disabled>
-            <img src="./play-previous.svg" />
+            <img src="/play-previous.svg" />
           </button>
           
           <button className="playButton" disabled>
-            <img src="./play.svg" />
+            <img src="/play.svg" />
           </button>
           
           <button disabled>
-            <img src="./play-next.svg" />
+            <img src="/play-next.svg" />
           </button>
           
           <button disabled>
-            <img src="./repeat.svg" />
+            <img src="/repeat.svg" />
           </button>
         </div>
       </footer>

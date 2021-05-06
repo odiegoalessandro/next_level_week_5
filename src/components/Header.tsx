@@ -10,7 +10,7 @@ export function Header(){
 
   return(
     <Container>
-      <img src="./logo.svg" />
+      <img src="/logo.svg" />
       <p>O melhor para você ouvir sempre</p>
       <span>{currentDate}</span>
     </Container>

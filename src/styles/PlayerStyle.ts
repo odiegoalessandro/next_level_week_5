@@ -3,7 +3,7 @@ import styled from 'styled-components'
 export const Container = styled.div`
   padding: 3rem 4rem;
   width: 26.5rem;
-  height: 100vh;
+  height: 100vh;;
 
   background: var(--purple-500);
   color: var(--white);
