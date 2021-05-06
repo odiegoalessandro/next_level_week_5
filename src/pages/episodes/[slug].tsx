@@ -8,6 +8,7 @@ import { api } from '../../services/api';
 import { convertDurationToTimeString } from '../../utils/convertDurationToTimeString';
 import { Container } from '../../styles/EpisodesStyle'
 import { Context } from 'node:vm';
+import { Head } from '../../services/Head'
 
 interface Episode{
   id: string;
@@ -28,37 +29,40 @@ type EpisodeProps = {
 export default function Episode({ episode }:EpisodeProps){
   const router = useRouter()
 
-  console.log(router.query)
-
   return(
-    <Container>
-        <div className="thumbnailContainer">
-          <Link href="/">
-            <button>
-              <img src="/arrow-left.svg" alt="Voltar"/>
+    <>
+      <Head>
+        <title>{`Podcastr | ${episode.title}`}</title>
+      </Head>
+      <Container>
+          <div className="thumbnailContainer">
+            <Link href="/">
+              <button>
+                <img src="/arrow-left.svg" alt="Voltar"/>
+              </button>
+            </Link>
+
+            <Image 
+              width={700}
+              height={160}
+              src={episode.thumbnail}
+              objectFit="cover"
+            />
+            <button type="button">
+              <img src="/play.svg" alt="Tocar episódio"/>
             </button>
-          </Link>
+          </div>
 
-          <Image 
-            width={700}
-            height={160}
-            src={episode.thumbnail}
-            objectFit="cover"
-          />
-          <button type="button">
-            <img src="/play.svg" alt="Tocar episódio"/>
-          </button>
-        </div>
+          <header>
+            <h1>{episode.title}</h1>
+            <span>{episode.members}</span>
+            <span>{episode.publishedAt}</span>
+            <span>{episode.durationAsString}</span>
+          </header>
 
-        <header>
-          <h1>{episode.title}</h1>
-          <span>{episode.members}</span>
-          <span>{episode.publishedAt}</span>
-          <span>{episode.durationAsString}</span>
-        </header>
-
-        <div className="description" dangerouslySetInnerHTML={{__html: episode.description }} />
-      </Container>
+          <div className="description" dangerouslySetInnerHTML={{__html: episode.description }} />
+        </Container>
+      </>
   )
 }
 

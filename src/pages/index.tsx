@@ -4,6 +4,8 @@ import { ptBR } from 'date-fns/locale'
 import { api } from '../services/api'
 import { convertDurationToTimeString } from '../utils/convertDurationToTimeString'
 import { Homepage } from '../styles/indexStyle'
+import { Head } from '../services/Head'
+import  Link from 'next/link'
 
 interface Episode{
   id: string;
@@ -23,8 +25,12 @@ interface HomeProps{
 }
 
 export default function Home({allEpisodes, latestEpisodes}:HomeProps) {
+
   return(
     <>
+      <Head>
+        <title>Podcastr | Home</title>
+      </Head>
       <Homepage>
         <section className="latestEpisodes">
           <h2>Ultímos lançamentos</h2>
@@ -42,7 +48,11 @@ export default function Home({allEpisodes, latestEpisodes}:HomeProps) {
                     />
 
                     <div className="details">
-                      <a href={`/episodes/${episode.id}`}>{episode.title}</a>
+                      <Link href={`/episodes/${episode.id}`}>
+                        <a>
+                          {episode.title}
+                        </a>
+                      </Link>
                       <p>{episode.members}</p>
                       <span>{episode.publishedAt}</span>
                       <span>{episode.durationAsString}</span>
@@ -61,12 +71,14 @@ export default function Home({allEpisodes, latestEpisodes}:HomeProps) {
             <h2>Todos os episodios</h2>
             <table cellSpacing={0}>
               <thead>
-                <th></th>
-                <th>Podcast</th>
-                <th>Integrantes</th>
-                <th>Data</th>
-                <th>Duração</th>
-                <th></th>
+                <tr>
+                  <th></th>
+                  <th>Podcast</th>
+                  <th>Integrantes</th>
+                  <th>Data</th>
+                  <th>Duração</th>
+                  <th></th>
+                </tr>
               </thead>
               <tbody>
                 {
@@ -83,7 +95,7 @@ export default function Home({allEpisodes, latestEpisodes}:HomeProps) {
                           />
                         </td>
                         <td>
-                          <a href={`/episodes/${episode.id}`}>{episode.title}</a>
+                          <Link href={`/episodes/${episode.id}`}>{episode.title}</Link>
                         </td>
                         <td>{episode.members}</td>
                         <td style={{ width: '100px' }}>{episode.publishedAt}</td>
