@@ -1,11 +1,10 @@
-import { createContext, ReactNode, useState } from 'react';
+import { createContext, ReactNode, useContext, useState } from 'react';
 
 type Episode ={
   title: string
   members: string
   thumbnail: string
   duration: number
-  durationAsString: string
   url: string
 }
 
@@ -21,6 +20,10 @@ type PlayerContextData = {
   playPrevious: () => void
   hasNext: boolean
   hasPrevious: boolean
+  isLooping: boolean
+  toogleLoop: () => void
+  isShuffling: boolean
+  toogleShuffle: () => void
 }
 
 type PlayerContextProviderProps = {
@@ -33,6 +36,8 @@ export const PlayerContextProvider = ({ children }: PlayerContextProviderProps) 
   const [episodeList, setEpisodeList] = useState([] as any)
   const [currentEpisodeIndex, setCurrentEpisodeIndex] = useState(0)
   const [isPlaying, setIsPlaying] = useState(false)
+  const [isLooping, setIsLooping] = useState(false)
+  const [isShuffling, setIsShuffling] = useState(false)
 
   function play(episode: Episode) {
     setEpisodeList([episode])
@@ -50,6 +55,14 @@ export const PlayerContextProvider = ({ children }: PlayerContextProviderProps) 
     setIsPlaying(!isPlaying)
   }
 
+  function toogleLoop(){
+    setIsLooping(!isLooping)
+  }
+
+  function toogleShuffle() {
+    setIsShuffling(!isShuffling)
+  }
+
   function setPlayingState(state:boolean){
     state != isPlaying && setPlayingState(state) 
   }
@@ -58,6 +71,11 @@ export const PlayerContextProvider = ({ children }: PlayerContextProviderProps) 
   const hasNext = (currentEpisodeIndex + 1) < episodeList.length;
 
   function playNext() {
+    if(isShuffling){
+      const nextRandomEpisodeIndex = Math.floor(Math.random() * episodeList.length)
+      
+      setCurrentEpisodeIndex(nextRandomEpisodeIndex)
+    }
     if(hasNext) {
       setCurrentEpisodeIndex(currentEpisodeIndex + 1);
     }
@@ -81,9 +99,17 @@ export const PlayerContextProvider = ({ children }: PlayerContextProviderProps) 
       playNext,
       playPrevious,
       hasNext,
-      hasPrevious
+      hasPrevious,
+      isLooping,
+      toogleLoop,
+      isShuffling,
+      toogleShuffle
     }}>
       {children}
     </PlayerContext.Provider>
   )
+}
+
+export const usePlayer = () => {
+  return useContext(PlayerContext)
 }
